@@ -11,7 +11,10 @@ const filterCategories = [
 
 const FilterPanel = () => {
     return (
-        <div className="bg-gray-50 p-4 rounded-lg border-gray-100 sticky top-20 ">
+        // FIX: Removed bg-gray-50 (let the page.js control the background).
+        // FIX: Added lg:sticky top-20 to make it sticky ONLY on large screens.
+        // On small screens, the 'sticky' class is removed, allowing the filter to scroll normally.
+        <div className="p-4 rounded-lg border border-gray-50 lg:sticky lg:top-20 bg-gray-50 w-[510px] h-[1,869px]">
             
             {/* Filter Header */}
             <div className="flex justify-between items-center mb-4 pb-2 border-b border-gray-200">
@@ -28,7 +31,8 @@ const FilterPanel = () => {
                 {filterCategories.map((category, index) => (
                     <div 
                         key={index} 
-                        className="flex justify-between items-center p-2 hover:bg-gray-50 cursor-pointer text-gray-700 text-sm font-medium"
+                        // Removed hover:bg-gray-50 here since the container bg is now white
+                        className="flex justify-between items-center p-2 hover:bg-gray-50 cursor-pointer text-gray-700 text-sm font-medium transition duration-150"
                     >
                         <span>{category}</span>
                         <FaChevronRight className="w-3 h-3 text-gray-400" />
@@ -38,7 +42,7 @@ const FilterPanel = () => {
 
             {/* Near Location Filter (Standalone Section) */}
             <div className="p-2 border-t border-gray-200">
-                <div className="flex justify-between items-center text-gray-700 text-sm font-medium mb-2">
+                <div className="flex justify-between items-center text-gray-700 text-sm font-medium mb-2 cursor-pointer">
                     <span>Near Location</span>
                     <FaChevronRight className="w-3 h-3 text-gray-400" />
                 </div>
@@ -47,7 +51,7 @@ const FilterPanel = () => {
                 <div className="mt-4">
                     <p className="text-xs text-gray-500 mb-1">Sort by Price:</p>
                     {/* Placeholder for the $1000 - $80000 slider */}
-                    <div className="w-full h-1 bg-gray-300 rounded relative">
+                    <div className="w-full h-1  rounded relative">
                         {/* Example of showing the range text */}
                         <div className="flex justify-between text-xs text-gray-600 mt-2">
                             <span>$1000</span>

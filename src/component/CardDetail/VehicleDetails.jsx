@@ -1,5 +1,5 @@
 "use client";
-// src/components/CarDetail/VehicleDetails.jsx (REVISED)
+// src/components/CarDetail/VehicleDetails.jsx (FIXED)
 
 import React, { useState } from "react";
 
@@ -19,7 +19,7 @@ const colorSwatches = [
   { code: "G", color: "green-600", hoverText: "Green", defaultBg: "gray-200" },
   {
     code: "Y",
-    color: "yellow-500",
+    color: "yellow-700", // Darker yellow color
     hoverText: "Yellow",
     defaultBg: "gray-200",
   },
@@ -30,7 +30,17 @@ const colorSwatches = [
 
 const VehicleDetails = () => {
   const [hoveredColor, setHoveredColor] = useState("");
-  const [activeHoverCode, setActiveHoverCode] = useState(null); // New state to track the hovered swatch
+  const [activeHoverCode, setActiveHoverCode] = useState(null); 
+
+  // Helper function to get the appropriate text color on hover
+  const getHoverTextColor = (swatchCode) => {
+    // If the swatch is Yellow or White (light backgrounds), use black text.
+    if (swatchCode === 'Y' || swatchCode === 'W') {
+      return 'text-black';
+    }
+    // Otherwise (for Green, Red, Blue - dark backgrounds), use white text.
+    return 'text-white';
+  };
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md space-y-5 border border-gray-100">
@@ -47,7 +57,7 @@ const VehicleDetails = () => {
             <p className="text-xs text-gray-500 font-medium tracking-wide uppercase text-left">
               Guaranteed Price *
             </p>
-            <p className="text-2xl  text-black mt-2">
+            <p className="text-2xl text-black mt-2">
               ${vehicle.guaranteedPrice}
             </p>
           </div>
@@ -56,11 +66,11 @@ const VehicleDetails = () => {
             className="h-[60px] border-r border-gray-300 mx-15 mt-1"
           ></div>
           {/* Miles Price */}
-          <div className="flex flex-col text-right w-max flex-shrink-0">
+          <div className="flex flex-col text-right w-max shrink-0">
             <p className="text-xs text-gray-500 font-medium tracking-wide uppercase text-left">
               Miles
             </p>
-            <p className="text-2xl  text-black mt-1 text-left">
+            <p className="text-2xl text-black mt-1 text-left">
               {vehicle.milesPrice}
             </p>
           </div>
@@ -74,7 +84,7 @@ const VehicleDetails = () => {
 
       {/* 2. Grade/Rating & Lights */}
       <div className="flex items-center justify-between border-t border-b border-gray-200 py-2 text-sm">
-        {/* Left Side: Lights/Color Swatches (Removed the 'GO' button) */}
+        {/* Left Side: Lights/Color Swatches */}
         <div className="flex items-center space-x-2">
           <span className="font-medium">Lights</span>
           {/* Color Swatches G, Y, R, B, W */}
@@ -82,21 +92,21 @@ const VehicleDetails = () => {
             <button
               key={swatch.code}
               className={`
-                                relative w-6 h-6 rounded-full border border-gray-400 text-xs font-bold transition duration-150
-                                flex items-center justify-center cursor-pointer 
-                                
-                                ${
-                                  swatch.code === "W" // Styling for the White swatch
-                                    ? `text-gray-900 bg-${swatch.defaultBg}`
-                                    : `text-gray-900 bg-${swatch.defaultBg}` // Default background for others
-                                }
-                                
-                                ${
-                                  activeHoverCode === swatch.code // Conditional styling for hover effect
-                                    ? `bg-${swatch.color} text-white border-transparent shadow-md`
-                                    : ""
-                                }
-                            `}
+                relative w-6 h-6 rounded-full border border-gray-400 text-xs font-bold transition duration-150
+                flex items-center justify-center cursor-pointer 
+                
+                ${
+                  swatch.code === "W" // Styling for the White swatch
+                    ? `text-gray-900 bg-${swatch.defaultBg}`
+                    : `text-gray-900 bg-${swatch.defaultBg}` // Default background for others
+                }
+                
+                ${
+                  activeHoverCode === swatch.code 
+                    ? `bg-${swatch.color} ${getHoverTextColor(swatch.code)} border-transparent shadow-md` // FIX APPLIED HERE
+                    : ""
+                }
+              `}
               onMouseEnter={() => {
                 setHoveredColor(swatch.hoverText);
                 setActiveHoverCode(swatch.code);

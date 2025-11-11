@@ -10,8 +10,8 @@ import SearchResults from "@/component/SearchPage/SearchResults";
 const UsedCarSearchPage = () => {
   return (
     <UsedCarLayout>
-      <div className="bg-gray-50 min-h-screen py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="bg-white min-h-screen py-8 max-w-fit ">
+        <div className=" mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Header/Title */}
          
@@ -20,13 +20,13 @@ const UsedCarSearchPage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             
             {/* 1. Left Column: Filter Panel (Takes 1/4 width) */}
-            <div className="lg:col-span-1">
+            <div className="lg:col-span-1 ">
               <FilterPanel />
             </div>
             
             {/* 2. Right Column: Search Results (Takes 3/4 width) */}
             
-            <div className="lg:col-span-3">
+            <div className=" lg:col-span-3 mx-9 ">
                
               <SearchResults />
             </div>
